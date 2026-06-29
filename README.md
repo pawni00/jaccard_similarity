@@ -1,29 +1,153 @@
-# jaccard_similarity
-A Python project to calculate the Jaccard Similarity between datasets
-# Word Similarity & Spelling Corrector using Jaccard Similarity
+# Spelling Correction Using Jaccard Similarity
 
-A lightweight Python implementation of a spelling correction engine. This project utilizes **Character N-grams** and the **Jaccard Similarity Coefficient** to find and suggest the closest matching correct words from a dictionary for misspelled inputs.
+This project demonstrates a simple **Spelling Correction System** using **Jaccard Similarity** and **Character N-Grams** in Python.
 
-## 🚀 Features
+## 📌 Project Overview
 
-- **Text Preprocessing:** Cleans and normalizes text input (lowercasing, special character removal).
-- **Character N-grams:** Breaks words down into overlapping substrings (bi-grams by default) to capture structural similarity.
-- **Jaccard Similarity Evaluation:** Computes the mathematical closeness between word structures.
-- **Auto-Correction:** Automatically maps misspelled words (e.g., `machin`, `scince`) to their closest correct dictionary forms.
+The objective of this project is to identify and correct misspelled words by comparing them with a predefined dictionary using the Jaccard Similarity algorithm.
+
+The system:
+
+- Generates character n-grams from words.
+- Computes similarity scores between misspelled and correct words.
+- Returns the closest matching word from the dictionary.
 
 ---
 
-## 🧠 How it Works
+## 🚀 Features
 
-### 1. Jaccard Similarity Formula
-The Jaccard index measures the similarity between two finite sample sets (in this case, sets of character n-grams) and is calculated as:
+✅ Character N-Gram generation  
+✅ Jaccard Similarity implementation  
+✅ Basic spelling correction system  
+✅ Text preprocessing (lowercasing and removing special characters)  
+✅ Improved correction for noisy inputs
 
-$$J(A, B) = \frac{|A \cap B|}{|A \cup B|}$$
+---
 
-*   **Intersection ($A \cap B$):** Common n-grams between both words.
-*   **Union ($A \cup B$):** Total unique n-grams across both words.
+## 🛠️ Technologies Used
 
-### 2. N-gram Example
-For the word `"university"` with $n=2$ (Bi-grams):
+- Python
+- Jupyter Notebook
+- Regular Expressions (`re` module)
+
+---
+
+## 📂 Project Structure
+
+```
+Spelling-Correction-Using-Jaccard-Similarity/
+│
+├── Spelling Correction Using Jaccard Similarity.ipynb
+└── README.md
+```
+
+---
+
+## 🔍 How It Works
+
+### 1. Create Character N-Grams
+
 ```python
+def char_ngrams(word, n=2):
+    word = word.lower()
+    return [word[i:i+n] for i in range(len(word)-n+1)]
+```
+
+Example:
+
+```python
+char_ngrams("university")
+```
+
+Output:
+
+```
 ['un', 'ni', 'iv', 've', 'er', 'rs', 'si', 'it', 'ty']
+```
+
+---
+
+### 2. Calculate Jaccard Similarity
+
+```python
+def jaccard_similarity(a, b):
+    set1 = set(a)
+    set2 = set(b)
+    return len(set1 & set2) / len(set1 | set2)
+```
+
+Formula:
+
+\[
+J(A,B)=\frac{|A \cap B|}{|A \cup B|}
+\]
+
+---
+
+### 3. Correct Misspelled Words
+
+Example input:
+
+```python
+wrong_word = ["recieve", "freind", "lernning", "machin", "scince"]
+```
+
+Sample output:
+
+```
+recieve ---> receive
+freind ---> friend
+lernning ---> learning
+machin ---> machine
+scince ---> science
+```
+
+---
+
+## 🧹 Text Preprocessing
+
+The project also includes preprocessing to remove unwanted characters and convert text to lowercase.
+
+```python
+def preprocessing(word):
+    word = word.lower()
+    word = re.sub(r'[^a-z]', '', word)
+    return word
+```
+
+Example:
+
+```python
+preprocessing("Company#5")
+```
+
+Output:
+
+```
+company
+```
+
+---
+
+## 📈 Future Improvements
+
+- Use a larger dictionary dataset.
+- Add support for edit distance algorithms.
+- Develop a GUI or web application.
+- Integrate with NLP libraries for better accuracy.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome. Feel free to fork this repository and submit a pull request.
+
+---
+
+## 📜 License
+
+This project is open-source and available under the MIT License.
+
+---
+
+### ⭐ If you found this project useful, please give it a star on GitHub.
